@@ -15,7 +15,7 @@ zig fetch --save git+https://github.com/rplstr/vorbis.git
 2. In your `build.zig`, add the dependency and link the artifacts you need.
 ```zig
 // build.zig
-const exe = b.addExecutable(...)
+const exe = b.addExecutable(...);
 
 const vorbis = b.dependency("vorbis", .{
     .target = target,
