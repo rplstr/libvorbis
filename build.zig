@@ -26,6 +26,8 @@ pub fn build(b: *std.Build) void {
     });
     libvorbis_module.addIncludePath(b.path("include"));
     libvorbis_module.addIncludePath(b.path("lib"));
+    libvorbis_module.addIncludePath(ogg_dep.path("include"));
+
     libvorbis_module.addCSourceFiles(.{
         .files = &.{
             "lib/mdct.c",     "lib/smallft.c",    "lib/block.c",     "lib/envelope.c", "lib/window.c",
@@ -53,6 +55,7 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     libvorbisfile_module.addIncludePath(b.path("include"));
+    libvorbisfile_module.addIncludePath(ogg_dep.path("include"));
     libvorbisfile_module.addCSourceFile(.{
         .file = b.path("lib/vorbisfile.c"),
         .flags = cflags,
@@ -76,6 +79,7 @@ pub fn build(b: *std.Build) void {
     });
     libvorbisenc_module.addIncludePath(b.path("include"));
     libvorbisenc_module.addIncludePath(b.path("lib"));
+    libvorbisenc_module.addIncludePath(ogg_dep.path("include"));
     libvorbisenc_module.addCSourceFile(.{
         .file = b.path("lib/vorbisenc.c"),
         .flags = cflags,
@@ -99,6 +103,7 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     vorbis_zig.addIncludePath(b.path("include"));
+    vorbis_zig.addIncludePath(ogg_dep.path("include"));
 
     const vorbis_module = b.addModule("vorbis", .{
         .root_source_file = vorbis_zig.getOutput(),
@@ -112,6 +117,7 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     vorbisfile_zig.addIncludePath(b.path("include"));
+    vorbisfile_zig.addIncludePath(ogg_dep.path("include"));
 
     const vorbisfile_module = b.addModule("vorbisfile", .{
         .root_source_file = vorbisfile_zig.getOutput(),
@@ -125,6 +131,7 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     vorbisenc_zig.addIncludePath(b.path("include"));
+    vorbisenc_zig.addIncludePath(ogg_dep.path("include"));
 
     const vorbisenc_module = b.addModule("vorbisenc", .{
         .root_source_file = vorbisenc_zig.getOutput(),
