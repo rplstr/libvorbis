@@ -1,147 +1,39 @@
-# Vorbis
+This is a Zig package for the [Xiph.Org Foundation's](https://xiph.org) `libvorbis`. It provides `libvorbis`, `libvorbisfile`, and `libvorbisenc`.
 
-[![GitLab Build Status](https://gitlab.xiph.org/xiph/vorbis/badges/master/pipeline.svg)](https://gitlab.xiph.org/xiph/vorbis/-/pipelines)
-[![Travis Build Status](https://travis-ci.org/xiph/vorbis.svg?branch=master)](https://travis-ci.org/xiph/vorbis)
-[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/github/xiph/vorbis?branch=master&svg=true)](https://ci.appveyor.com/project/rillian/vorbis)
+Unnecessary files have been removed, and the build system has been replaced with `build.zig`.
 
-Vorbis is a general purpose audio and music encoding format
-contemporary to MPEG-4's AAC and TwinVQ, the next generation beyond
-MPEG audio layer 3. Unlike the MPEG sponsored formats (and other
-proprietary formats such as RealAudio G2 and Windows' flavor of the
-month), the Vorbis CODEC specification belongs to the public domain.
-All the technical details are published and documented, and any
-software entity may make full use of the format without license
-fee, royalty or patent concerns.
+This is for Zig 0.14.1, with `minimum_zig_version` set to the same value. The library will be updated only for STABLE Zig releases.
 
-This package contains:
+## Usage
+### Adding to your project
 
-- libvorbis, a BSD-style license software implementation of
-  the Vorbis specification by the Xiph.Org Foundation
-  (https://xiph.org/)
+1. Add this repository as a dependency in your `build.zig.zon`
+```sh
+zig fetch --save git+https://github.com/rplstr/vorbis.git
+```
 
-- libvorbisfile, a BSD-style license convenience library
-  built on Vorbis designed to simplify common uses
+2. In your `build.zig`, add the dependency and link the artifacts you need.
+```zig
+// build.zig
+const exe = b.addExecutable(...)
 
-- libvorbisenc, a BSD-style license library that provides a simple,
-  programmatic encoding setup interface
+const vorbis = b.dependency("vorbis", .{
+    .target = target,
+    .optimize = optimize,
+});
 
-- example code making use of libogg, libvorbis, libvorbisfile and
-  libvorbisenc
+// this package exposes zig modules for vorbis, vorbisfile, and vorbisenc.
+// simply add the one you need
+// exe.addModule("vorbisfile", vorbis.module("vorbisfile"));
+// exe.addModule("vorbisenc", vorbis.module("vorbisenc"));
+// exe.addModule("vorbis", vorbis.module("vorbis"));
 
-## What's here ##
+3. In your Zig code, you can then import and use it.
+```zig
+const vorbis = @import("vorbisfile");
 
-This source distribution includes libvorbis and an example
-encoder/player to demonstrate use of libvorbis as well as
-documentation on the Ogg Vorbis audio coding format.
-
-You'll need libogg (distributed separately) to compile this library.
-A more comprehensive set of utilities is available in the vorbis-tools
-package.
-
-Directory:
-
-- `lib` The source for the libraries, a BSD-license implementation of the public domain Ogg Vorbis audio encoding format.
-
-- `include` Library API headers
-
-- `debian` Rules/spec files for building Debian .deb packages
-
-- `doc` Vorbis documentation
-
-- `examples` Example code illustrating programmatic use of libvorbis, libvorbisfile and libvorbisenc
-
-- `macosx` Project files for MacOS X.
-
-- `win32` Win32 projects files and build automation
-
-- `vq` Internal utilities for training/building new LSP/residue and auxiliary codebooks.
-
-## Contact ##
-
-The Ogg homepage is located at 'https://xiph.org/ogg/'.
-Vorbis's homepage is located at 'https://xiph.org/vorbis/'.
-Up to date technical documents, contact information, source code and
-pre-built utilities may be found there.
-
-## Building ##
-
-#### Building from master ####
-
-Development source is under git revision control at
-https://gitlab.xiph.org/xiph/vorbis.git. You will also need the
-newest versions of autoconf, automake, libtool and pkg-config in
-order to compile Vorbis from development source. A configure script
-is provided for you in the source tarball distributions.
-
-    ./autogen.sh
-    ./configure
-    make
-
-and as root if desired:
-
-    make install
-
-This will install the Vorbis libraries (static and shared) into
-/usr/local/lib, includes into /usr/local/include and API manpages
-(once we write some) into /usr/local/man.
-
-Documentation building requires xsltproc and pdfxmltex.
-
-#### Building from tarball distributions ####
-
-    ./configure
-    make
-
-and optionally (as root):
-
-    make install
-
-#### Building RPM packages ####
-
-after normal configuring:
-
-    make dist
-    rpm -ta libvorbis-<version>.tar.gz
-
-## Building with CMake ##
-
-Ogg supports building using [CMake](https://cmake.org/). CMake is a meta build system that generates native projects for each platform.
-To generate projects just run cmake replacing `YOUR-PROJECT-GENERATOR` with a proper generator from a list [here](https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html):
-
-    cmake -G YOUR-PROJECT-GENERATOR .
-
-Note that by default cmake generates projects that will build static libraries.
-To generate projects that will build dynamic library use `BUILD_SHARED_LIBS` option like this:
-
-    cmake -G YOUR-PROJECT-GENERATOR -DBUILD_SHARED_LIBS=1 .
-
-After projects are generated use them as usual
-
-#### Building on Windows ####
-
-Use proper generator for your Visual Studio version like:
-
-    cmake -G "Visual Studio 12 2013" .
-
-#### Building on Mac OS X ####
-
-Use Xcode generator. To build framework run:
-
-    cmake -G Xcode -DBUILD_FRAMEWORK=1 .
-
-#### Building on Linux ####
-
-Use Makefile generator which is default one.
-
-    cmake .
-    make
-
-## License ##
-
-THIS FILE IS PART OF THE OggVorbis SOFTWARE CODEC SOURCE CODE.
-USE, DISTRIBUTION AND REPRODUCTION OF THIS LIBRARY SOURCE IS
-GOVERNED BY A BSD-STYLE SOURCE LICENSE INCLUDED WITH THIS SOURCE
-IN 'COPYING'. PLEASE READ THESE TERMS BEFORE DISTRIBUTING.
-
-THE OggVorbis SOURCE CODE IS COPYRIGHT (C) 1994-2020
-by the Xiph.Org Foundation https://xiph.org/
+pub fn main() !void {
+    var vf: vorbis.OggVorbis_File = undefined;
+    _ = &vf;
+}
+```
