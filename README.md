@@ -27,6 +27,7 @@ const vorbis = b.dependency("vorbis", .{
 // exe.addModule("vorbisfile", vorbis.module("vorbisfile"));
 // exe.addModule("vorbisenc", vorbis.module("vorbisenc"));
 // exe.addModule("vorbis", vorbis.module("vorbis"));
+```
 
 3. In your Zig code, you can then import and use it.
 ```zig
