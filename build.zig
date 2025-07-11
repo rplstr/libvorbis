@@ -33,7 +33,7 @@ pub fn build(b: *std.Build) void {
             "lib/mdct.c",     "lib/smallft.c",    "lib/block.c",     "lib/envelope.c", "lib/window.c",
             "lib/lsp.c",      "lib/analysis.c",   "lib/synthesis.c", "lib/psy.c",      "lib/info.c",
             "lib/floor1.c",   "lib/floor0.c",     "lib/res0.c",      "lib/mapping0.c", "lib/registry.c",
-            "lib/codebook.c", "lib/sharedbook.c", "lib/lookup.c",
+            "lib/codebook.c", "lib/sharedbook.c", "lib/lookup.c",    "lib/bitrate.c",  "lib/lpc.c", 
         },
         .flags = cflags,
     });
