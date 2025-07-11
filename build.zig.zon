@@ -1,7 +1,7 @@
 .{
     .name = .libvorbis,
     .version = "1.3.7",
-    .fingerprint = 0x808d28d2a154633c,
+    .fingerprint = 0xbe9c0933bcf1a1c1,
     .minimum_zig_version = "0.14.1",
     .paths = .{
         "include",
