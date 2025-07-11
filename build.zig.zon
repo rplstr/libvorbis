@@ -1,5 +1,5 @@
 .{
-    .name = .vorbis,
+    .name = .libvorbis,
     .version = "1.3.7",
     .fingerprint = 0x808d28d2a154633c,
     .minimum_zig_version = "0.14.1",
