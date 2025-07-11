@@ -9,7 +9,7 @@ This is for Zig 0.14.1, with `minimum_zig_version` set to the same value. The li
 
 1. Add this repository as a dependency in your `build.zig.zon`
 ```sh
-zig fetch --save git+https://github.com/rplstr/vorbis.git
+zig fetch --save git+https://github.com/rplstr/libvorbis.git
 ```
 
 2. In your `build.zig`, add the dependency and link the artifacts you need.
